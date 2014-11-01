@@ -12,7 +12,7 @@ public class Context {
     private final Set<Class<?>> classes = new HashSet<>();
     private Map<Class<?>, Object> instances;
     private final GroupExecutor executor;
-    private HashMap<Class<?>, Object> unManaged;
+    private HashMap<Class<?>, Object> unManaged = new HashMap<>();
 
     public Context() {
         this(Executors.newSingleThreadExecutor());
@@ -20,7 +20,6 @@ public class Context {
 
     public Context(ExecutorService service) {
         this.executor = new GroupExecutor(service);
-        unManaged = new HashMap<>();
         addUnManaged(this);
     }
 

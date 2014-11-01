@@ -22,7 +22,6 @@ public class DependencyStructure {
         this.unManaged = unManaged;
         groups = new LinkedList<>();
         stack = new Stack<>();
-
     }
 
     public List<Set<Class<?>>> create() {
