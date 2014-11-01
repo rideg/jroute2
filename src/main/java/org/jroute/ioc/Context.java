@@ -10,9 +10,8 @@ import static java.util.Arrays.asList;
 public class Context {
 
     private final Set<Class<?>> classes = new HashSet<>();
-    private Map<Class<?>, Object> instances;
+    private Map<Class<?>, Object> instances = new HashMap<>();
     private final GroupExecutor executor;
-    private HashMap<Class<?>, Object> unManaged = new HashMap<>();
 
     public Context() {
         this(Executors.newSingleThreadExecutor());
@@ -24,7 +23,7 @@ public class Context {
     }
 
     public void addUnManaged(Object service) {
-        unManaged.put(service.getClass(), service);
+        instances.put(service.getClass(), service);
     }
 
     public void add(Class<?> object) {
@@ -32,13 +31,11 @@ public class Context {
     }
 
     public void startup() throws Exception {
-        instances = new HashMap<>(unManaged);
         dependencies().stream().forEach(g -> createInstances(g).stream().forEach(i -> instances.put(i.getClass(), i)));
     }
 
     private List<Object> createInstances(Set<Class<?>> g) {
-        return executor.<Object>execute(g,
-                new StartupStrategy(new DefaultInstantiator(instances)));
+        return executor.<Object>execute(g, new StartupStrategy(new DefaultInstantiator(instances)));
     }
 
     public void shutdown() throws Exception {
