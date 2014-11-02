@@ -28,8 +28,8 @@ public class ServiceProxyCreator {
     }
 
     private void prepareCallbacks(Object[] args) {
-        for(Object o : args) {
-            if(o.getClass() == Callback.class) {
+        for (Object o : args) {
+            if (o.getClass() == Callback.class) {
                 wrapCallback(o);
             }
         }
@@ -40,7 +40,7 @@ public class ServiceProxyCreator {
             Field method = o.getClass().getDeclaredField("method");
             method.setAccessible(true);
             method.set(o, createProxy(method.get(o), book.getQueue(currentThread().getId())));
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -49,10 +49,10 @@ public class ServiceProxyCreator {
     private <T> T createProxy(T subject, Buffer buffer) {
         Class<?> s = subject.getClass();
         return (T) newProxyInstance(s.getClassLoader(), s.getInterfaces(),
-                (proxy, method, args) -> {
-                    buffer.push(new Task(subject, method, args));
-                    return null;
-                });
+                                    (proxy, method, args) -> {
+                                        buffer.push(new Task(subject, method, args));
+                                        return null;
+                                    });
     }
 
 }

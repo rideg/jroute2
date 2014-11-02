@@ -19,7 +19,7 @@ public class StartupStrategy implements ExecutionStrategy<Object> {
         return () -> {
             Object o = instantiator.newInstance(subject);
             Optional<Method> startup = findStartup(subject);
-            if(startup.isPresent()) {
+            if (startup.isPresent()) {
                 startup.get().invoke(o);
             }
             return o;
@@ -28,8 +28,8 @@ public class StartupStrategy implements ExecutionStrategy<Object> {
 
     private Optional<Method> findStartup(Class<?> subject) {
         return asList(subject.getMethods()).stream()
-                .filter(m -> "startup".equals(m.getName()))
-                .findFirst();
+                                           .filter(m -> "startup".equals(m.getName()))
+                                           .findFirst();
     }
 
 }

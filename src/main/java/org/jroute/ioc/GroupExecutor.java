@@ -22,7 +22,7 @@ public class GroupExecutor {
     private <T> T get(Future<T> f) {
         try {
             return f.get();
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new IllegalStateException(e);
         }
     }

@@ -20,7 +20,7 @@ public class BufferAddressBook {
     }
 
     private void extendIfNeeded(long threadId) {
-        if(threadId >= buffers.length) {
+        if (threadId >= buffers.length) {
             this.buffers = copyOf(this.buffers, (int) threadId * 2);
         }
     }

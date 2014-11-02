@@ -40,14 +40,14 @@ public class DependencyStructure {
         List<Class<?>> dependencies = getDependencies(service);
 
         dependencies.stream()
-                .filter(d -> !unManaged.contains(d))
-                .forEach(d -> {
-                    check(d);
-                    safeProcess(d);
-                });
+                    .filter(d -> !unManaged.contains(d))
+                    .forEach(d -> {
+                        check(d);
+                        safeProcess(d);
+                    });
 
-        for(Set<Class<?>> group : groups) {
-            if(dependencies.isEmpty()) {
+        for (Set<Class<?>> group : groups) {
+            if (dependencies.isEmpty()) {
                 group.add(service);
                 return;
             }
@@ -68,7 +68,7 @@ public class DependencyStructure {
     }
 
     private void checkExistence(Class<?> dependency) {
-        if(!classes.contains(dependency)) {
+        if (!classes.contains(dependency)) {
             throw new IllegalStateException("Cannot find dependency " + dependency);
         }
     }
@@ -91,17 +91,17 @@ public class DependencyStructure {
     }
 
     private void check(Class<?> service, Constructor<?>[] constructors) {
-        if(constructors.length == 0) {
+        if (constructors.length == 0) {
             throw new IllegalStateException("Cannot find public constructor for " + service);
         }
-        if(constructors.length > 1) {
+        if (constructors.length > 1) {
             throw new IllegalStateException(
                     service + " has more than one public constructor! (Which one should be used?)");
         }
     }
 
     private void checkCircularity(Class<?> dependency) {
-        if(stack.contains(dependency)) {
+        if (stack.contains(dependency)) {
             throw new IllegalStateException("Found circular dependency!");
         }
     }

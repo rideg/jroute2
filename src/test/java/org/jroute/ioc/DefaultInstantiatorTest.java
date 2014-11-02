@@ -12,12 +12,15 @@ public class DefaultInstantiatorTest {
 
 
     public static class A {
+
     }
 
     public static class B {
+
     }
 
     public static class C {
+
         private final A a;
         private final B b;
 

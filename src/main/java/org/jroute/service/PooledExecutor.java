@@ -20,7 +20,7 @@ public class PooledExecutor {
     }
 
     public void submit(Runnable run) {
-        for(int i = 0; i < parallelism; i++) {
+        for (int i = 0; i < parallelism; i++) {
             Thread t = factory.newThread(run);
             threads.add(t);
             t.start();
@@ -28,11 +28,11 @@ public class PooledExecutor {
     }
 
     public void shutdown() {
-        for(Thread t : threads) {
+        for (Thread t : threads) {
             try {
                 t.interrupt();
                 t.join(SECONDS.toMillis(DEFAULT_TIMEOUT));
-            } catch(InterruptedException ignored) {
+            } catch (InterruptedException ignored) {
             }
         }
     }

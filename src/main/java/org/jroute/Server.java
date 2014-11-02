@@ -26,7 +26,7 @@ public class Server {
 
     public void start() throws Exception {
         AsynchronousServerSocketChannel channel = open(withFixedThreadPool(1, new BorokaThreadFactory()));
-        if(channel.isOpen()) {
+        if (channel.isOpen()) {
             channel.setOption(SO_KEEPALIVE, true);
             channel.setOption(SO_RCVBUF, DEFAULT_BUFFER_SIZE);
             channel.setOption(SO_SNDBUF, DEFAULT_BUFFER_SIZE);

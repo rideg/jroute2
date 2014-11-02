@@ -19,17 +19,17 @@ public class AsynchronousServiceRunner {
     private void run() {
         try {
             Task[] tasks = new Task[taskBuffer.size() >> 1 + 1];
-            while(true) {
+            while (true) {
                 int amount = taskBuffer.read(tasks);
-                for(int i = 0; i < amount; i++) {
+                for (int i = 0; i < amount; i++) {
                     try {
                         tasks[i].execute();
-                    } catch(Throwable e) {
+                    } catch (Throwable e) {
                         e.printStackTrace();
                     }
                 }
             }
-        } catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             // shutdown
         }
     }

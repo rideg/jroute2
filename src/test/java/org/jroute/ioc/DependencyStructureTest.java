@@ -35,6 +35,7 @@ public class DependencyStructureTest {
 
 
     public static class A {
+
     }
 
     @Test
@@ -51,6 +52,7 @@ public class DependencyStructureTest {
     }
 
     public static class B {
+
         public B(A a) {
         }
     }
@@ -71,16 +73,19 @@ public class DependencyStructureTest {
 
 
     public static class C {
+
         public C(D d) {
         }
     }
 
     public static class D {
+
         public D(E e) {
         }
     }
 
     public static class E {
+
         public E(C c) {
         }
     }
@@ -107,17 +112,20 @@ public class DependencyStructureTest {
     }
 
     public static class G {
+
         public G(A a, F b) {
         }
     }
 
     public static class H {
+
         public H(G g, B b) {
 
         }
     }
 
     public static class I {
+
         public I(B b) {
 
         }
@@ -139,7 +147,7 @@ public class DependencyStructureTest {
         assertThat(groups.get(2), hasItems(H.class, I.class));
     }
 
-    @DependsOn({F.class, A.class})
+    @DependsOn({ F.class, A.class })
     public static class J {
 
     }

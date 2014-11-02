@@ -24,7 +24,7 @@ public class ShutdownStrategy implements ExecutionStrategy<Void> {
                             .filter(m -> "shutdown".equals(m.getName()))
                             .findFirst();
 
-            if(shutdown.isPresent()) {
+            if (shutdown.isPresent()) {
                 shutdown.get().invoke(instances.get(subject));
             }
             return null;
